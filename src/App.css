@@ -1,3 +1,17 @@
+.btn-custom {
+  background-color: green;
+  color: white;
+}  
+
+.col-md-6-b {
+  background-color:#282c34;
+  color:red;
+  height: 40pc;
+  }
+.col2 {
+  background-color:blue;
+  }
+
 .App {
   text-align: center;
 }
