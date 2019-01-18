@@ -9,8 +9,8 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class SigIn extends Component {
-  constructor(...props) {
-    super(...props);
+  constructor(props) {
+    super(props);
 
     this.state = {
       email: '',
@@ -29,6 +29,8 @@ class SigIn extends Component {
     this.encuestaBody= this.encuestaBody.bind(this);
     this.isAuth = this.isAuth.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.isType = this.isType.bind(this);
+    this.isUni = this.isUni.bind(this);
     //this.clic = this.clic.bind(this);
   }
 
@@ -109,16 +111,18 @@ class SigIn extends Component {
       axios.post(`https://api-rest-crudric.herokuapp.com/api/signin`, user)
         .then(
           res => {
-            console.log(res);
+            //console.log('signin',res.data.id);
             const token = res.data.token;
-           // localStorage.setItem('token', token);
+            const typeU = res.data.user;
+            const uni = res.data.id
            sessionStorage.setItem('token',token);
-            this.setRedirectEnc()
-           
+           sessionStorage.setItem('typeU',typeU);
+           sessionStorage.setItem('uni',uni)           
+            this.setRedirectEnc()           
           }
         )
         .catch(error => {
-         // localStorage.clear();
+         //console.log(error.request.responseText);
          return  this.setState(this.setErrorMsg('Usuario o Password incorrectos'))
         })
     }else{
@@ -138,17 +142,44 @@ class SigIn extends Component {
     return t && t.length > 10;
   }
 
+  
+  isType(){
+    const type = sessionStorage.getItem('typeU');
+    return type;
+  }
+  isUni(){
+    const u = sessionStorage.getItem('uni');
+    return u;
+  }
 
-  render() {
+
+
+
+  render() {    
+    const isT = this.isType();
+   // const n = 2;
+   /* if(isT === 'estudiante'){
+      console.log('eres estudiante')
+    }if(isT=== 'administrador'){
+      console.log('eres administrador')
+    }*/
+    /*
+    isT === 'estudiante' && n === 1 ? console.log('eres estudiante 1'):
+    isT === 'estudiante' ? console.log('eres estudiante nadamas'):
+    isT === 'administrador' ? console.log('eres admnistrador') : console.log()
+    */
+
+    const unique = this.isUni();
     const isAlreadyAuth = this.isAuth();
-   //const {from} = this.props.location.state || {from : { pathname: '/' }}
-   //const {redirectRoute } = this.state
+   // const isAlreadyType = this.isType();
     return (   
-       
+       //<Redirect to='/Inicio' />
      // <div>
       //2 { redirectRoute ? <Redirect to={from} /> : (
         <div>
-        { isAlreadyAuth ? <Redirect to='/Encuesta' /> : (
+        { isAlreadyAuth && isT === 'estudiante' ?  <Redirect to={{pathname:'/Encuesta',state:{id:unique}}} /> : 
+          isAlreadyAuth && isT === 'administrador' ? <Redirect to='/Inicio' /> :
+        (
           <Col md={5} style={{ margin: 0, backgroundColor: '#233D7B', height: '41.08pc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Col sm={8} >
               <Panel >

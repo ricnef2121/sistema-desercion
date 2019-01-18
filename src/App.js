@@ -6,7 +6,7 @@ import LoginCompleto from './Componentes/Login/LoginCompleto';
 import SingUp from './Componentes/SingUp';
 import Encuesta from './Componentes/Encuesta';
 import Error from './Componentes/Error';
-import Menu from './Componentes/menu';
+//import Menu from './Componentes/menu';
 import InicioAdmin from './Componentes/Admin/Inicio/index';
 import Carreras from './Componentes/Admin/Carreras';
 import Cuestionarios from './Componentes/Admin/Cuestionarios';
@@ -44,7 +44,7 @@ class App extends Component {
       <Router>
         <div>        
         <Switch>
-        <Route exact path="/" component={LoginCompleto}></Route>
+        <Route exact path="/"  component={LoginCompleto}></Route>
         <Route path="/SingUp" component={SingUp}></Route>
         <Route path="/Encuesta" component={Encuesta}></Route>
         <Route path="/Inicio" component={InicioAdmin}></Route>

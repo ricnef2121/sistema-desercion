@@ -1,113 +1,62 @@
 import React, { Component } from 'react';
-import { Col, Navbar, Nav, NavItem,Image,Row } from 'react-bootstrap'
+import { Col, Navbar, NavItem,Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-/**
- * <Navbar style={{ borderRadius: '0px 0px 0px 0px', backgroundColor: 'white', borderColor: 'white' }}>
 
-                        <Navbar.Toggle />
-
-                        <Navbar.Collapse >
-                            <NavItem componentClass={Link} href="/Inicio" to="/Inicio"
-                                active={window.location.pathname === "/Inicio"}>
-                                Inicio
-                    </NavItem>
-                        </Navbar.Collapse>
-                    </Navbar>
- * 
- * 
- * 
- * 
- * 
- *  <Navbar >
-                    <Navbar.Toggle />
-                    <Navbar.Collapse >
-                        <NavItem eventKey={1} href="/home">
-                            NavItem 1 content
-                        </NavItem>
-                        <NavItem eventKey={2} title="Item">
-                            NavItem 2 content
-                        </NavItem>
-                        <NavItem eventKey={3} disabled>
-                            NavItem 3 content
-                        </NavItem>
-                    </ Navbar.Collapse >
-                        
-                    </Navbar >
-
-
- * 
- * 
- * 
- * 
- * 
- * 
- * <Navbar style={{ borderRadius: '0px 0px 0px 0px', backgroundColor: 'white', borderColor: 'white'}}>
-                        <Navbar.Header style={{ margin: '0px',display: 'inline', alignItems: 'center', justifyContent: 'center' }}>
-                            <Navbar.Brand style={{  }}>
-                                <a href="#home">Brand</a>
-                            </Navbar.Brand>
-                            <Navbar.Toggle />
-                        </Navbar.Header>
-                        <Navbar.Collapse >
-                            <Navbar.Text>
-                                Signed  <Navbar.Link href="#">Mark Otto</Navbar.Link>
-                            </Navbar.Text>
-                            <Navbar.Text>
-                                s <Navbar.Link href="#">Mark Otto</Navbar.Link>
-                            </Navbar.Text>                                  
-                        </Navbar.Collapse>
-                    </Navbar>
- */
 export default class NavAdmin extends Component {
     render() {
-        return (
+        return (//bsStyle="pills" stacked activeKey={1}
             <div>
                 <Col md={2} style={{ margin: '0px', padding: '0px' }}>
-                    <Nav bsStyle="pills" stacked activeKey={1} >
+                    <Navbar.Form style={{listStyle:'none',margin:'0px',padding:'0px'}} >
                     <Navbar style={{ borderRadius: '0px 0px 0px 0px', backgroundColor: 'white', borderColor: 'white'}}>
-                    <Navbar.Header>
+                    <Navbar.Header >
                     <Navbar.Toggle />
                     </Navbar.Header>
-                       
+                    
                     <Navbar.Collapse  >
                         <NavItem   
                         componentClass={Link} href="/Inicio" to="/Inicio"
-                        active={window.location.pathname === "/Inicio"}
-                        style={{paddingTop:'10px'}} href="/home">
-                        <Image src={require('./img/inicio.png')}/>
-                        <a style={{verticalAlign:'sub',paddingLeft:'9px'}}>Inicio</a>                    
+                        //active={window.location.pathname === "/Inicio"}
+                        style={{paddingTop:'10px'}}
+                        //justifyContent: 'space-between'
+                        //<a style={{verticalAlign:'sub',paddingLeft:'9px'}}>Inicio</a> 
+                        >
+                        <Image style={{marginRight:'9px',verticalAlign:'middle'}} src={require('./img/inicio.png')}/>
+                          Inicio            
                         </NavItem>
 
                         <NavItem  
                         componentClass={Link} href="/Carreras" to="/Carreras"
-                        active={window.location.pathname === "/Carreras"}
-                        style={{paddingTop:'10px'}}>
-                        <Image style={{width:'2em',height:'3em'}} 
+                        //active={window.location.pathname === "/Carreras"}
+                        style={{paddingTop:'10px',}}>
+                        <Image style={{width:'2em',height:'3em',marginRight:'9px',verticalAlign:'middle'}} 
                         src={require('./img/carreras.png')}/>
-                        <a style={{verticalAlign:'sub',paddingLeft:'9px'}}>Carreras</a>        
+                       Carreras        
                         </NavItem>
 
                         <NavItem  
                         componentClass={Link} href="/Cuestionarios" to="/Cuestionarios"
-                        active={window.location.pathname === "/Cuestionarios"}
+                        //active={window.location.pathname === "/Cuestionarios"}
                         style={{paddingTop:'10px'}}>
                         <Image 
-                        style={{width:'2sem',height:'3em'}}
+                        style={{width:'2sem',height:'3em',marginRight:'9px',verticalAlign:'middle'}}
                         src={require('./img/cuestionarios.png')}/>
-                        <a style={{verticalAlign:'sub',paddingLeft:'9px'}}>Cuestionarios</a>        
+                        Cuestionarios        
                         </NavItem>
 
                         <NavItem  
                         componentClass={Link} href="/Graficas" to="/Graficas"
-                        active={window.location.pathname === "/Graficas"}
-                        tyle={{paddingTop:'10px'}}>
-                        <Image src={require('./img/graficas.png')}/>
-                        <a style={{verticalAlign:'sub',paddingLeft:'9px'}}> Graficas especificas</a>        
+                        //active={window.location.pathname === "/Graficas"}
+                        style={{paddingTop:'10px'}}>
+                        <Image 
+                        style={{marginRight:'9px',verticalAlign:'middle'}}
+                        src={require('./img/graficas.png')}/>
+                        Graficas especificas        
                         </NavItem>
 
                     </Navbar.Collapse>
                     </Navbar>
-                    </Nav>
+                    </Navbar.Form>
                 </Col>
             </div>
         );

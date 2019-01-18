@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Col, Row, Image, NavItem } from 'react-bootstrap';
+import { Navbar, Col, Row, Image} from 'react-bootstrap';
 /*
  <Col md={2} style={{backgroundColor:'gray'}}>
                 <Image style={{}} src={require('./img/Layer_sep.png')} responsive />   
