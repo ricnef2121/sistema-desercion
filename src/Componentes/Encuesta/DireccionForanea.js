@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Col, Form, FormGroup, ControlLabel, FormControl, Button, Panel, Row, MenuItem,
 } from 'react-bootstrap';
-export default class DireccionLocal extends Component {
+export default class DireccionForanea extends Component {
 
 
     render() {
@@ -14,7 +14,9 @@ export default class DireccionLocal extends Component {
         }
 
         return (
-            <div style={{}} hidden={this.props.hiddenDireccionLoc}>
+            <div style={{}} 
+            hidden={this.props.hiddenDireccionFor}
+            >
                 <Col md={12} style={{
                     margin: '0px', padding: '0px',
                     //backgroundColor: 'red',
@@ -28,12 +30,12 @@ export default class DireccionLocal extends Component {
                             }}>
                                 <Panel.Title style={{ fontWeight: '900' }}
                                     componentClass="h3">
-                                    Direccion {this.props.title}</Panel.Title>
+                                    Direccion Foranea{this.props.title}</Panel.Title>
                             </Panel.Heading>
                             <Panel.Body style={{ padding: 0 }}>
 
                                 <Form
-                                 onSubmit={this.props.addDireccionLocal}
+                                onSubmit={this.props.addDireccionForaneo}
                                 >
                                     <Row style={{ margin: '10px' }}>
                                         <Col md={4} >

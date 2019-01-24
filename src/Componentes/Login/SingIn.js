@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import ModalAnimacion from './ModalAnimacion';
 
 class SigIn extends Component {
   constructor(props) {
@@ -18,7 +19,12 @@ class SigIn extends Component {
       hiddendiv: 'True',
       redirectReg: false,
       redirectEnc:false,
-      loginMessage:null
+      redirectAni:false,
+      loginMessage:null,
+
+      //animacion
+      hiddenAnimacion : true,
+      hiddenPanelLogin : false
     };
     
     this.handleChange = this.handleChange.bind(this);
@@ -31,7 +37,11 @@ class SigIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isType = this.isType.bind(this);
     this.isUni = this.isUni.bind(this);
-    //this.clic = this.clic.bind(this);
+
+    //Animacion
+    this.setAnimacion = this.setAnimacion.bind(this);
+    this.setStopAnimacion = this.setStopAnimacion.bind(this);
+
   }
 
   handleChange(e) {
@@ -66,6 +76,18 @@ class SigIn extends Component {
     })
   }
 
+  setAnimacion=()=>{
+    this.setState({
+      hiddenAnimacion : false,
+      hiddenPanelLogin : true
+    })
+  }
+  setStopAnimacion=()=>{
+    this.setState({
+      hiddenAnimacion : true,
+      hiddenPanelLogin : false
+    })
+  }
 
   registrarseForm = () => {
     if (this.state.redirectReg) {
@@ -81,7 +103,7 @@ class SigIn extends Component {
 
   getValidationEmail() {
     const length = this.state.email.length;
-    if (length > 7) return 'success';
+    if (length > 7) {return 'success'}
     else if (length > 5) return 'warning';
     else if (length > 0) return 'error';
     return null;
@@ -99,6 +121,7 @@ class SigIn extends Component {
 
 
   handleSubmit = event => {
+    //this.setRedirectAni();
     event.preventDefault();
     if(this.state.email.length >= 7 && this.state.password.length >= 8 ){
       const user = {
@@ -107,11 +130,12 @@ class SigIn extends Component {
       };
       event.target.email.value = "";
       event.target.password.value = "";
+      this.setAnimacion();
       console.log(user);
       axios.post(`https://api-rest-crudric.herokuapp.com/api/signin`, user)
         .then(
           res => {
-            //console.log('signin',res.data.id);
+            console.log('signin',res.data);
             const token = res.data.token;
             const typeU = res.data.user;
             const uni = res.data.id
@@ -123,7 +147,10 @@ class SigIn extends Component {
         )
         .catch(error => {
          //console.log(error.request.responseText);
-         return  this.setState(this.setErrorMsg('Usuario o Password incorrectos'))
+         return  this.setState(
+           this.setErrorMsg('Usuario o Password incorrectos'),
+           this.setStopAnimacion()
+           )
         })
     }else{
       console.log("error");
@@ -171,18 +198,21 @@ class SigIn extends Component {
 
     const unique = this.isUni();
     const isAlreadyAuth = this.isAuth();
-   // const isAlreadyType = this.isType();
     return (   
-       //<Redirect to='/Inicio' />
-     // <div>
-      //2 { redirectRoute ? <Redirect to={from} /> : (
+
         <div>
+          
         { isAlreadyAuth && isT === 'estudiante' ?  <Redirect to={{pathname:'/Encuesta',state:{id:unique}}} /> : 
           isAlreadyAuth && isT === 'administrador' ? <Redirect to='/Inicio' /> :
-        (
-          <Col md={5} style={{ margin: 0, backgroundColor: '#233D7B', height: '41.08pc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        ( 
+          <Col           
+          md={5} style={{ margin: 0, backgroundColor: '#233D7B', height: '41.08pc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Col sm={8} >
-              <Panel >
+            
+            <ModalAnimacion hidden={this.state.hiddenAnimacion} ></ModalAnimacion>
+             
+             
+              <Panel hidden={this.state.hiddenPanelLogin} >
                 <Panel.Heading style={{ backgroundColor: 'white', paddingLeft: '50px' }}>
                   <Panel.Title style={{ fontWeight: 'bold' }} componentClass="h3">Autenticación</Panel.Title>
                 </Panel.Heading>
@@ -239,6 +269,7 @@ class SigIn extends Component {
 
                     <div className='text-center' style={{ paddingTop: '10px' }}>
                     {this.encuestaBody()}
+              
                       <Button style={{ backgroundColor: '#44B91A', color: 'white', fontWeight: '500', borderRadius: '3em' }}
                         type="submit">Iniciar sesion</Button>
                     </div>
@@ -252,10 +283,8 @@ class SigIn extends Component {
                 </Panel.Body>
               </Panel>
             </Col>
-
+                    
           </Col>
-     /// ) }2
-      ///</div>2
   ) }
   </div>
     );

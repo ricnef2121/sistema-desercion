@@ -10,7 +10,7 @@ export default class ModalAdd extends Component {
             return  <MenuItem key={i} eventKey={factor.name}
             //onSelectedValue={this.props.sourceSelected(factor._id)}
              >
-            {factor.name}</MenuItem>})
+            {factor.name}</MenuItem>}) 
 
         return (
             <div>

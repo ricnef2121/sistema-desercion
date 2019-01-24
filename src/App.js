@@ -6,35 +6,12 @@ import LoginCompleto from './Componentes/Login/LoginCompleto';
 import SingUp from './Componentes/SingUp';
 import Encuesta from './Componentes/Encuesta';
 import Error from './Componentes/Error';
-//import Menu from './Componentes/menu';
 import InicioAdmin from './Componentes/Admin/Inicio/index';
 import Carreras from './Componentes/Admin/Carreras';
 import Cuestionarios from './Componentes/Admin/Cuestionarios';
 import Graficas from './Componentes/Admin/Graficas';
-/*
-const isAuth = {
-  //const t = localStorage.getItem('token');
-  //return t && t.length > 10;
-  auth() {
-    const t = localStorage.getItem('token');
-    return t && t.length > 10;
-  },
-  signOut(){
-    const t = localStorage.clear();
-    return t;
-  }
-}
-*/
-// <Route path="/Encuesta" component={Encuesta}></Route>
-//<PrivateRoute path="/Encuesta" component={Encuesta} ></PrivateRoute>
-/*
-const PrivateRoute = ({ component: Component, rest }) => (
-  <Route {...rest} render={(props)=>(
-    isAuth.auth ? <Component {...props} /> :
-    <Redirect to={ { pathname: '/', state: { from: props.location}}}/>
-  )}/>
-)
-*/
+import Animacion from './Componentes/Login/ModalAnimacion';
+
 
 class App extends Component {
 
@@ -51,6 +28,7 @@ class App extends Component {
         <Route path="/Carreras" component={Carreras}></Route>
         <Route path="/Cuestionarios" component={Cuestionarios}></Route>
         <Route path="/Graficas" component={Graficas}></Route>
+        <Route path="/Animacion" component={Animacion}></Route>
         <Route component={Error}></Route>
         </Switch>
         </div>

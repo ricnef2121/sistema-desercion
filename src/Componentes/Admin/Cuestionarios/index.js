@@ -291,7 +291,7 @@ export default class Cuestionarios extends Component{
                     resultBusqueda={this.state.resultBusqueda} closeBusqueda={this.closeBusqueda}
                     showU={this.showU}
                     showUpdate={this.state.showUpdate} onHideUpdate={this.handleCloseUpdate}
-                    
+                     
                     delete={this.delete} showD={this.showD}
                     >
                     </ResultadoBusqueda>

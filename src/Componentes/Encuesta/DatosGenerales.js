@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; 
 import {
     Col, Form, FormGroup, ControlLabel, FormControl, Button, Panel, Row,
     InputGroup, DropdownButton, MenuItem, Radio
@@ -15,13 +15,13 @@ export default class DatosGenerales extends Component {
         }
 
         return (
-            <div style={{}} hidden={this.props.hiddenDatosGene}>
+            <div  hidden={this.props.hiddenDatosGene}>
                 <Col md={12} style={{
                     margin: '0px', padding: '0px',
                     //backgroundColor: 'red',
                     display: 'flex', height: '37.7pc', alignContent: 'center', justifyContent: 'center'
                 }}>
-                    <Col md={6} style={{ paddingTop: '70px', margin: '0px' }}>
+                    <Col xs={12} md={6} style={{ paddingTop: '70px', margin: '0px' }}>
                         <Panel >
                             <Panel.Heading style={{
                                 backgroundColor: 'white',
@@ -128,7 +128,9 @@ export default class DatosGenerales extends Component {
                                             <FormGroup style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
                                                 <Button style={{
                                                     padding: '0px', borderRadius: '3em',
-                                                    height: '25px', width: '110px', backgroundColor: '#44B91A', color: 'white', fontWeight: 'bold'
+                                                    height: '25px', width: '110px', 
+                                                    backgroundColor: '#44B91A',
+                                                     color: 'white', fontWeight: 'bold'
                                                 }}
                                                     type="submit" >Siguiente</Button>
                                             </FormGroup>
