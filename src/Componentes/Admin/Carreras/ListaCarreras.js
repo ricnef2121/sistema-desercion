@@ -90,8 +90,7 @@ export default class ListaCarreras extends Component {
          });
     }
     
-    componentDidMount() {
-       
+    componentDidMount() {       
         axios.get(`https://api-rest-crudric.herokuapp.com/api/carreras`)
             .then(res => {
                 const carreras = (res.data).carreras;
@@ -99,10 +98,9 @@ export default class ListaCarreras extends Component {
                 this.setState({
                     carreras: carreras
                 })
-            })
-
-            
+            })            
     }
+
     componentWillReceiveProps(nextProps) {
         this.setState({
             newcarreras: nextProps.newcarreras,

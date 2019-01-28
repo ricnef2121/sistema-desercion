@@ -13,7 +13,7 @@ export default class DatosGenerales extends Component {
                 <MenuItem key={number * 2} eventKey={number}>{number}</MenuItem>
             );
         }
-
+        
         return (
             <div  hidden={this.props.hiddenDatosGene}>
                 <Col md={12} style={{
@@ -58,7 +58,9 @@ export default class DatosGenerales extends Component {
                                             <FormGroup>
                                                 <ControlLabel> Email</ControlLabel>
                                                 <FormControl
+                                                    disabled
                                                     type="email" id="email" name="email"
+                                                    defaultValue={this.props.e}
                                                     placeholder="email@email.com" />
                                             </FormGroup>
                                         </Col>

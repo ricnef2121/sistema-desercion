@@ -28,7 +28,7 @@ export default class DatosAcademicos extends Component {
         return (
             <div            
             hidden={this.props.hiddenDatosAca}
-            >
+            >{this.props.survey()}
                 <Col md={12} style={{
                     margin: '0px', padding: '0px',
                     //backgroundColor: 'red',
@@ -67,8 +67,7 @@ export default class DatosAcademicos extends Component {
                                                         id="carrera"
                                                         title=""
                                                         name="carrera"
-                                                        onSelect={this.props.selectedCarrera}
-                                                    // onSelect={this.props.sourceSelected}                                                                                                                           
+                                                        onSelect={this.props.selectedCarrera}                                                                                                                         
                                                     >
                                                         {carreras}
                                                     </DropdownButton>
@@ -77,13 +76,6 @@ export default class DatosAcademicos extends Component {
                                                     />                                                    
                                                 </InputGroup>
 
-                                                {/*
-                                                <ControlLabel>Carrera</ControlLabel>
-                                                <FormControl
-                                                    type="text" id="Carrera"
-                                                    name="Carrera"
-                                                    placeholder="Carrera" />
-                                                    */}
                                             </FormGroup>
                                         </Col>
                                         <Col md={6} >
@@ -123,7 +115,6 @@ export default class DatosAcademicos extends Component {
                                                 <ControlLabel>Fecha de Ingreso</ControlLabel>
                                                 <FormControl
                                                     type="date" id="fecha" name="fecha"
-                                                    //placeholder="Semestre" 
                                                     />
                                             </FormGroup>
                                         </Col>
@@ -244,4 +235,4 @@ export default class DatosAcademicos extends Component {
                                             </FormGroup>
                                         </Col>
 
- */
+ */ 

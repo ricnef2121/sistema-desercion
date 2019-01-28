@@ -11,6 +11,8 @@ import Carreras from './Componentes/Admin/Carreras';
 import Cuestionarios from './Componentes/Admin/Cuestionarios';
 import Graficas from './Componentes/Admin/Graficas';
 import Animacion from './Componentes/Login/ModalAnimacion';
+import CuestionarioEncuesta from './Componentes/Encuesta/Cuestionario';
+
 
 
 class App extends Component {
@@ -29,6 +31,7 @@ class App extends Component {
         <Route path="/Cuestionarios" component={Cuestionarios}></Route>
         <Route path="/Graficas" component={Graficas}></Route>
         <Route path="/Animacion" component={Animacion}></Route>
+        <Route path="/Survey" component={CuestionarioEncuesta}></Route>
         <Route component={Error}></Route>
         </Switch>
         </div>

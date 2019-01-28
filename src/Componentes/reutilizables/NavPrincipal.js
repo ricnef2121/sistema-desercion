@@ -26,8 +26,8 @@ export default class NavPrincipal extends Component {
                     <Col xs={9} md={7} >
                     <Image src={require('./img/Layer 0.png')} responsive /> 
                     </Col>
-                    <Col xs={12} md={3} style={{paddingTop:'15px',textAlign:'right',color:'white'}}>
-                        correo@correo.com gravatar
+                    <Col xs={12} md={3} style={{paddingTop:'15px',textAlign:'right',color:'white', fontWeight: 'bold'}}>
+                       Bienvenido {this.props.e}
                     </Col>
                     
                 </Row>

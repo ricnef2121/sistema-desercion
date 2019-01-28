@@ -37,6 +37,7 @@ class SigIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isType = this.isType.bind(this);
     this.isUni = this.isUni.bind(this);
+    this.isE = this.isE.bind(this);
 
     //Animacion
     this.setAnimacion = this.setAnimacion.bind(this);
@@ -139,9 +140,11 @@ class SigIn extends Component {
             const token = res.data.token;
             const typeU = res.data.user;
             const uni = res.data.id
+            const e = res.data.email
            sessionStorage.setItem('token',token);
            sessionStorage.setItem('typeU',typeU);
-           sessionStorage.setItem('uni',uni)           
+           sessionStorage.setItem('uni',uni) 
+           sessionStorage.setItem('e',e)           
             this.setRedirectEnc()           
           }
         )
@@ -178,6 +181,11 @@ class SigIn extends Component {
     const u = sessionStorage.getItem('uni');
     return u;
   }
+  //obtiene el valor de e
+  isE(){
+    const e = sessionStorage.getItem('e');
+    return e;
+  }
 
 
 
@@ -198,16 +206,17 @@ class SigIn extends Component {
 
     const unique = this.isUni();
     const isAlreadyAuth = this.isAuth();
+    const e = this.isE();
     return (   
 
         <div>
           
-        { isAlreadyAuth && isT === 'estudiante' ?  <Redirect to={{pathname:'/Encuesta',state:{id:unique}}} /> : 
+        { isAlreadyAuth && isT === 'estudiante' ?  <Redirect to={{pathname:'/Encuesta',state:{id:unique,e:e}}} /> : 
           isAlreadyAuth && isT === 'administrador' ? <Redirect to='/Inicio' /> :
         ( 
           <Col           
           md={5} style={{ margin: 0, backgroundColor: '#233D7B', height: '41.08pc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Col sm={8} >
+            <Col sm={8} > 
             
             <ModalAnimacion hidden={this.state.hiddenAnimacion} ></ModalAnimacion>
              

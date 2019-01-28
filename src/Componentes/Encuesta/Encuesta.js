@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; 
 import './loader.css';
 //import { Col,Row } from 'react-bootstrap';
 //import { Col, Form, FormGroup, ControlLabel, FormControl, Button, Panel, Row, Checkbox, Radio } from 'react-bootstrap';
@@ -16,16 +16,12 @@ import { Row } from 'react-bootstrap';
 
 export default class EncuestaForm extends Component {
 
-    getEmail() {
-        //  const t = sessionStorage.getItem('token')
-        // return t && t.length > 10;
-    }
 
     render() {
-
+ 
         return (
             <div style={{ margin: '0px', height: '100%', backgroundColor: '#FAFAFC' }}>
-                <NavPrincipal />
+                <NavPrincipal e={this.props.e}/>
                 <Row style={{ margin: '0px' }}>
                     
                         <div
@@ -38,6 +34,7 @@ export default class EncuestaForm extends Component {
 
 
                     <DatosGenerales
+                        e={this.props.e}
                         hiddenDatosGene={this.props.hiddenDatosGene}
                         source={this.props.source}
                         sourceSelected={this.props.sourceSelected}
@@ -80,6 +77,8 @@ export default class EncuestaForm extends Component {
                     selectedSemestre = {this.props.selectedSemestre}
                     //put datos academicos
                     addDatosAcademicos = {this.props.addDatosAcademicos}
+                    //redireccionamiento a survey
+                    survey={this.props.survey}
                     ></DatosAcademicos>
                 </Row>
             </div>

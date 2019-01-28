@@ -22,6 +22,7 @@ export default class Encuesta extends Component {
         this.selectedTbaja = this.selectedTbaja.bind(this);
         this.selectedSemestre = this.selectedSemestre.bind(this);
         this.addDatosAcademicos = this.addDatosAcademicos.bind(this);
+        this.handleAnimacionAca = this.handleAnimacionAca.bind(this);
 
         //hiddenFormularios
         this.handleDatosGene = this.handleDatosGene.bind(this);
@@ -31,6 +32,9 @@ export default class Encuesta extends Component {
         this.handleAnimacionDireFor = this.handleAnimacionDireFor.bind(this);
         this.handleDireccionFor = this.handleDireccionFor.bind(this);
 
+        //redirecciona a Survey
+        this.redirectSurvey = this.redirectSurvey.bind(this);
+        
         this.state = {
             edadSelected: [],
             itemFactor: '',
@@ -53,6 +57,8 @@ export default class Encuesta extends Component {
             //propiedad que inicia vacia y cambia a Local dependiendo si el
             //usuario es residente Foraneo
             tituloForm: null,
+            //propiedad para redireccionar si o no a Survey
+            redirectSurvey:false
 
 
 
@@ -109,7 +115,6 @@ export default class Encuesta extends Component {
         }else{
             return null;
         }
-        
     }
      /**
      * modifica el valor de state.hiddenAnimacion; pasandolo a true,
@@ -149,6 +154,16 @@ export default class Encuesta extends Component {
             hiddenDireccionFor: true
         });
     }
+    
+    //oculta el formulario de datos academicos
+    //vuelve visible la animaciond e carga
+    handleAnimacionAca() {
+        this.setState({
+            hiddenAnimacion: false,
+            hiddenDatosAca: true,
+            redirectSurvey:true
+        });
+    }
 
     //selecciona el valor del item sellecionado de la lista de edades
     //y lo setea en state.edadSelected
@@ -177,6 +192,7 @@ export default class Encuesta extends Component {
         return u;
     }
 
+    
     //inserta los datos generales y actualiza la informacion del usuario
     //agregando mas informacion al mismo
     addDataGeneral = e => {
@@ -190,7 +206,7 @@ export default class Encuesta extends Component {
         const ApellidoCompleto = e.target.Apellidos.value;
         const divirApellido = ApellidoCompleto.split(" ", 2)
 
-        const p_Nombre = divirNombre[0];
+        const p_Nombre = divirNombre[0]; 
         const s_Nombre = divirNombre[1];
         const a_Paterno = divirApellido[0];
         const a_Materno = divirApellido[1];
@@ -320,6 +336,7 @@ export default class Encuesta extends Component {
     }
 
     addDatosAcademicos = e => {
+        this.handleAnimacionAca();
         e.preventDefault();
         const matricula = e.target.Matricula.value;
         const carrera = this.state.selectedCarrera;
@@ -342,6 +359,8 @@ export default class Encuesta extends Component {
         axios.put(`https://api-rest-crudric.herokuapp.com/api/userAcademico/${this.props.location.state.id}`, datos)
             .then(res => {
                 console.log(res.data);
+                console.warn(this.state.redirectSurvey)
+                
                 //this.handleDireccionLoc();
                 //this.handleDatosGene();
             })
@@ -391,16 +410,26 @@ export default class Encuesta extends Component {
 
         });
     }
+
+    redirectSurvey = () => {
+        //<Redirect to={{pathname:'/Encuesta',state:{id:unique,e:e}}}
+        if (this.state.redirectSurvey === true) {
+            return <Redirect to={{pathname:'/Survey',state:{id:this.props.location.state.id,e:this.props.location.state.e}}} />
+        }
+    }
+
     render() {
-        // console.log('encuesta',this.props.location.state.id)
+        //console.log('encuesta',this.props.location.state.id)
         const isAlreadyAuth = this.isAuth();
         const isT = this.isType();
-
+        console.log(this.props.location.state.e)
         return (
             <div style={{ margin: '0px' }}>
                 {(isAlreadyAuth && isT === 'estudiante') || (isAlreadyAuth && isT === 'administrador') ? (
                     <div style={{ margin: 0 }}>
                         <EncuestaForm
+                            //valor del campo email
+                            e={this.props.location.state.e}
                             //estados de hidden sobre los formularios
                             hiddenDatosGene={this.state.hiddenDatosGene}
                             hiddenDireccionLoc={this.state.hiddenDireccionLoc}
@@ -432,6 +461,8 @@ export default class Encuesta extends Component {
                             //seteo de el semestre seleccionado
                             sourceSemestre={this.state.selectedSemestre}
                             selectedSemestre={this.selectedSemestre}
+                            //redireccionaminento a survey
+                            survey = {this.redirectSurvey}
 
                         ></EncuestaForm>
 
