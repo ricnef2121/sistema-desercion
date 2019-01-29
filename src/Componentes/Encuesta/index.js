@@ -23,6 +23,7 @@ export default class Encuesta extends Component {
         this.selectedSemestre = this.selectedSemestre.bind(this);
         this.addDatosAcademicos = this.addDatosAcademicos.bind(this);
         this.handleAnimacionAca = this.handleAnimacionAca.bind(this);
+        this.handlesurvey = this.handlesurvey.bind(this);
 
         //hiddenFormularios
         this.handleDatosGene = this.handleDatosGene.bind(this);
@@ -161,6 +162,16 @@ export default class Encuesta extends Component {
         this.setState({
             hiddenAnimacion: false,
             hiddenDatosAca: true,
+           
+        });
+    }
+    /**
+     * oculta la animacion y vuelve el redirect de survey a true
+     * /para redireccionar a la encuesta
+     */
+    handlesurvey() {
+        this.setState({
+            hiddenAnimacion: true,
             redirectSurvey:true
         });
     }
@@ -359,10 +370,8 @@ export default class Encuesta extends Component {
         axios.put(`https://api-rest-crudric.herokuapp.com/api/userAcademico/${this.props.location.state.id}`, datos)
             .then(res => {
                 console.log(res.data);
-                console.warn(this.state.redirectSurvey)
-                
-                //this.handleDireccionLoc();
-                //this.handleDatosGene();
+               // console.warn(this.state.redirectSurvey)
+               this.handlesurvey();
             })
             .catch(err => {
                 console.log(err)

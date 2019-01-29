@@ -4,7 +4,7 @@ import { Row } from 'react-bootstrap';
 //componentes
 import NavPrincipal from '../../reutilizables/NavPrincipal';
 import Formulario from './formulario';
-import Documen from './documentacion';
+//import Documen from './documentacion';
 
 export default class Body extends Component {
     render(){
@@ -16,14 +16,18 @@ export default class Body extends Component {
            <Formulario 
             preguntas = {this.props.preguntas}
             addRespuestas = {this.props.addRespuestas}
+            //setea los datos que se seleecionen dentro del array
             handleClick={this.props.handleClick}
+            //coloca los checkboxs en false
+            initialCheck = {this.props.initialCheck}
+            //estado del factor actual
+            factorTitle={this.props.factorTitle}
             
-            //valor={this.props.valor}
+            onChangeAction={this.props.onChangeAction}
+            gracias = {this.props.gracias}
             />
         
-            {/*<Documen
-            preguntas = {this.props.preguntas}
-            />*/}
+            
          
            
             </Row>

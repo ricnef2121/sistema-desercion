@@ -12,6 +12,7 @@ import Cuestionarios from './Componentes/Admin/Cuestionarios';
 import Graficas from './Componentes/Admin/Graficas';
 import Animacion from './Componentes/Login/ModalAnimacion';
 import CuestionarioEncuesta from './Componentes/Encuesta/Cuestionario';
+import Gracias from './Componentes/Encuesta/Cuestionario/Gracias';
 
 
 
@@ -32,6 +33,7 @@ class App extends Component {
         <Route path="/Graficas" component={Graficas}></Route>
         <Route path="/Animacion" component={Animacion}></Route>
         <Route path="/Survey" component={CuestionarioEncuesta}></Route>
+        <Route path="/endup" component={Gracias}></Route>
         <Route component={Error}></Route>
         </Switch>
         </div>

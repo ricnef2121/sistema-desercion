@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+
 //componentes
 import Body from './Body';
 
@@ -11,14 +12,27 @@ export default class CuestionarioRes extends Component {
         this.isType = this.isType.bind(this);
         this.isUni = this.isUni.bind(this);
         this.addRespuestas = this.addRespuestas.bind(this);
-        //this.handleClick = this.handleClick.bind(this);
+        this.getPreguntasByFactor = this.getPreguntasByFactor.bind(this);
+        this.redirectGra = this.redirectGra.bind(this);
+        //this.onChangeAction = this.onChangeAction.bind(this)
 
         this.state = {
             preguntas: [],
             resultados: [],
-            valor: false
+            
+            factores:[],
+            valor: false,
+            factorTitle:'',
+            initialCheck:false,
+            i:0,
+            redirectGra:false
         }
 
+    }
+    onChangeAction = ()=>{
+        this.setState({
+            initialCheck:true
+        })
     }
    //inserta la pregunta y sus valores al arreglo de resultados
     handleClick = (data) => {
@@ -45,15 +59,35 @@ export default class CuestionarioRes extends Component {
 
     //trae todas las preguntas de la base de datos
     componentDidMount() {
-        axios.get(`https://api-rest-crudric.herokuapp.com/api/preguntas`)
+        axios.get(`https://api-rest-crudric.herokuapp.com/api/factores`)
             .then(res => {
-                const preguntas = (res.data).preguntas
-                // console.log(preguntas);
+                const factores = (res.data).factores                
                 this.setState({
-                    preguntas: preguntas
+                    factores: factores,
+                    factorTitle : factores[this.state.i].name,
+                    //initialCheck:false
                 })
+                this.getPreguntasByFactor();                 
             })
+
     }
+
+getPreguntasByFactor(){
+    if(this.state.factorTitle){ 
+        axios.get(`https://api-rest-crudric.herokuapp.com/api/preguntasFactor/${this.state.factorTitle}`)
+        .then(res => {
+            const preguntas = (res.data).pregunta
+           //console.log(preguntas);
+             this.setState({
+                preguntas: preguntas,                
+            })
+        })        
+    }else {
+        console.log('no se a setedo')
+    }
+}
+
+    //trae todas las preguntas de la base de datos 
 
 
     //obtiene el valor del token del usuario que ha iniciado sesion y lo devuelve    
@@ -75,8 +109,7 @@ export default class CuestionarioRes extends Component {
 
     //inserta una nueva respuesta por cada elemento de la matriz de resultados
     addRespuestas = (e) => {
-        e.preventDefault();
-
+        e.preventDefault();        
         this.state.resultados.forEach(r => {
             const c = {
                 pregunta: r.name,
@@ -87,18 +120,41 @@ export default class CuestionarioRes extends Component {
                 .then(res => {
                     const carreras = (res.data);
                     console.log(carreras);
+                    this.setState({
+                        resultados:[],
+                        i:this.state.i+1                        
+                        
+                    })
+                    //creamos una condicional para que despues de que se guarden las respuestas
+                    //se verifique si hay mas preguntas por responder si no simplemente se redirecciona 
+                    //al agradecimiento de realizar la encuesta
+                    if(this.state.i === this.state.factores.length){
+                        this.setState({
+                            redirectGra:true
+                        })
+                        console.log(this.state.redirectGra)
+                    }else{
+                        this.setState({
+                            factorTitle:this.state.factores[this.state.i].name,
+                        })
+                        this.getPreguntasByFactor();
+                    }                               
+                })                
+        })        
+    }
 
-                })
-        })
-
+   //este metodo se encarga de redireccionarnos a la vista de agradecimiento
+   //lo hace una ves que el estado redirectGra sea verdadero,mientras no.
+    redirectGra = () => {       
+        if (this.state.redirectGra === true) {
+            return <Redirect to='/endup' />
+        }
     }
 
     render() {
         const isAlreadyAuth = this.isAuth();
         const isT = this.isType();
-        //console.log(this.state.valor);
-        console.log('res', this.state.resultados)
-        //console.log()
+
         return (
             <div style={{ margin: '0px' }}>
                 {(isAlreadyAuth && isT === 'estudiante') || (isAlreadyAuth && isT === 'administrador') ? (
@@ -111,7 +167,16 @@ export default class CuestionarioRes extends Component {
                             email = {this.props.location.state.e} 
                             addRespuestas={this.addRespuestas}
                             handleClick={this.handleClick}
-                        // valor={this.state.valor}
+                            //estado inical de los checkbox necesario para volver a resetear los checkbox despues
+                            //de guardar las respuestas
+                            initialCheck = {this.state.initialCheck}
+
+                            //titulo o nombre del factor actual
+                            factorTitle={this.state.factorTitle}
+                            //onchange checkbox
+                            onChangeAction={this.onChangeAction}
+                            //redireccionador a agradeciminento
+                            gracias = {this.redirectGra}
                         />
 
 
