@@ -21,7 +21,7 @@ export default class Tabla extends Component {
         //creamos las cabeceras de la tabla por cada factor existente
         const headers = headnew.map((group, k) => {
             return <th key={k} style={{ border: 0 }}>{group}</th>
-        })
+        }) 
 
         //guardandolos es un arreglo llamado semes
         let semes = [];

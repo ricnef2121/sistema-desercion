@@ -7,7 +7,8 @@ import NavPrincipal from '../../reutilizables/NavPrincipal';
 import NavAdmin from '../../reutilizables/NavAdmin'
 import BarrasFactor from './Barras';
 import Tabla from './Tabla';
-import PieEdades from './PastelEdades';
+import PieEdades from './PastelEdades'; 
+import TablaDesetores from './TablaDesertoresSemestre';
 
 export default class Graficas extends Component {
   constructor(props, context) {
@@ -19,6 +20,8 @@ export default class Graficas extends Component {
     this.state = {
       groupFactors: [],
       groupSemestres:[],
+
+      groupSemestres2:[],
       groupEdades:[]
     };
   }
@@ -39,6 +42,15 @@ export default class Graficas extends Component {
         console.log('groupSem',groupSemestres) 
         this.setState({
           groupSemestres: groupSemestres
+        })
+      })
+
+      axios.get('https://api-rest-crudric.herokuapp.com/api/userSemCount2')
+      .then((res) => {
+        const groupSemestres2 = res.data;
+        console.log('groupSem2',groupSemestres2) 
+        this.setState({
+          groupSemestres2: groupSemestres2
         })
       })
 
@@ -76,17 +88,22 @@ export default class Graficas extends Component {
             <NavAdmin></NavAdmin>
             <Col md={10} style={{ backgroundColor: '#FAFAFC', height: '100%' }}>
               <Row>
+              <TablaDesetores
+                 groupSemestres2={this.state.groupSemestres2}
+                />
                 <BarrasFactor
                 groupFactors={this.state.groupFactors}
                
                 />
-                <Tabla 
+              {/**
+              <Tabla 
                 groupFactors2={this.state.groupFactors}
                 groupSemestres={this.state.groupSemestres}
                 />
-                <PieEdades 
-                groupEdades = {this.state.groupEdades}
-                />
+              */
+
+              }  
+               
               </Row>
             </Col>
 
@@ -97,17 +114,3 @@ export default class Graficas extends Component {
     );
   }
 }
-
-/**
- * {   (isAlreadyAuth && isT === 'administrador') || (isAlreadyAuth && isT === 'superadministrador') ? (
-                        <div style={{ margin: '0px' }}>
-                        <NavPrincipal />
-                <NavAdmin></NavAdmin>
-                <Col md={10} style={{ backgroundColor: '#FAFAFC', height: '100%' }}>
-                     <h1>asas</h1>
-                </Col>
-
-
-                    </div>
-                                    ) : (<Redirect to='/' />)}
- */

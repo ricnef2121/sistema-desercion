@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
 import {
     Col, Panel, Row, Table, DropdownButton
     , MenuItem
@@ -24,7 +24,7 @@ export default class BarraFactores extends Component {
         })
 
 
-        const Resumen = this.props.groupFactors.map((group,k) => {
+        const Resumen = this.props.groupFactors.map((group, k) => {
             return <tr key={k}>
                 <th style={{ border: 0, color: '#43425D' }}>{group.factor}</th>
                 <th style={{ border: 0, color: '#43425D' }}>{group.conteoTotal}</th>
@@ -41,13 +41,13 @@ export default class BarraFactores extends Component {
                     label: 'Hombre',
                     //data: [67.8,11,18,29],
                     data: dataHombre,
-                    backgroundColor: '#A3A1FB' 
+                    backgroundColor: '#A3A1FB'
                 },
                 {
                     label: 'Mujer',
                     //data: [20.7,15,52,13],
                     data: dataMujer,
-                    backgroundColor: '#FF6565' 
+                    backgroundColor: '#FF6565'
                 },
                 /*{
                     label: 'High',
@@ -59,7 +59,7 @@ export default class BarraFactores extends Component {
         }
         return (
             <div style={{ margin: '0px' }}>
-                <Col md={12} style={{ paddingTop: '10px', /*backgroundColor: 'green',*/ height: '100%' }}>
+                <Col md={6} style={{ paddingTop: '10px', /*backgroundColor: 'green',*/ height: '100%' }}>
                     <Panel style={{
                         /* height: '200pt', boxShadow: '0.01px 0.01px 0.01px black'*//*boxShadow:'0 0 0 0.1rem #000000'*/
                     }}>
@@ -69,15 +69,15 @@ export default class BarraFactores extends Component {
                                 margin: '0px'
                                 //backgroundColor:'red'
                             }}>
-                                <Col md={8} style={{ marginBottom: '10px' }}>
+                                <Col md={12} style={{ marginBottom: '10px' }}>
                                     <Col md={12} style={{ marginBottom: '10px', fontSize: '25px', fontWeight: '500' }}>
                                         Factores
-                            </Col>
+                                </Col>
                                     <Col md={12} style={{ marginTop: 0, marginRight: 0, paddingRight: 0, paddingLeft: 0, paddingBottom: 1 }}>
                                         <Bar
                                             // style={{display:'flex',alignItems:'left'}}
                                             data={charData}
-                                            height={200}
+                                            height={270}
 
 
                                             options={{
@@ -106,7 +106,7 @@ export default class BarraFactores extends Component {
 
                                 </Col>
 
-                                <Col md={4}// style={{marginTop:'100px'}}
+                                <Col md={12}// style={{marginTop:'100px'}}
                                 >
                                     <Row style={{ margin: '0px' }}>
                                         <Col md={12}>
@@ -115,7 +115,9 @@ export default class BarraFactores extends Component {
                                                     Filtrar por :
                             </div>
                                             </Col>
-                                            <Col md={8} style={{ margin: 0, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                           {/**
+                                        
+                                         <Col md={8} style={{ margin: 0, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                                 <div>
                                                     <DropdownButton
                                                         id="dropdown" title="Fecha actual"
@@ -138,6 +140,8 @@ export default class BarraFactores extends Component {
                                                     </DropdownButton>
                                                 </div></Col>
 
+                                        1*/}
+
 
                                         </Col>
 
@@ -151,7 +155,7 @@ export default class BarraFactores extends Component {
                                                 </thead>
                                                 <tbody style={{ fontSize: '12px', fontWeight: '300', border: 0 }}>
                                                     {Resumen}
-                                                    
+
                                                 </tbody>
                                             </Table>
                                         </Col>

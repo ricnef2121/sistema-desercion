@@ -42,7 +42,8 @@ export default class CuestionarioRes extends Component {
         })
     }
     //inserta la pregunta y sus valores al arreglo de resultados
-    handleClick = (data) => {
+    handleClick = (data,e) => {
+       
         const res = this.state.resultados;
         //Encontrar si un elemento existe en la matriz o no y actualizar la matriz
         //si el elemento no existe ,entonces lo crea o inserta
@@ -60,7 +61,7 @@ export default class CuestionarioRes extends Component {
             //como ya existe lo elimina del arreglo de resultados
             res.splice(res.indexOf(data), 1);
         }
-
+        
     }
 
 
@@ -83,6 +84,7 @@ export default class CuestionarioRes extends Component {
     //3
     componentWillUnmount() {
         this._isMounted = false;
+        
     }
 
 
@@ -143,7 +145,13 @@ export default class CuestionarioRes extends Component {
                         console.log(carreras);
                         this.setState({
                             resultados: [],
-                            i: this.state.i + 1
+                            //i: this.state.i + 1
+    
+                        })
+                        const i = this.state.i +1
+                        this.setState({
+                          //  resultados: [],
+                            i: i
     
                         })
                         //creamos una condicional para que despues de que se guarden las respuestas
@@ -153,7 +161,7 @@ export default class CuestionarioRes extends Component {
                             this.setState({
                                 redirectGra: true
                             })
-                            console.log(this.state.redirectGra)
+                            //console.log(this.state.redirectGra)
                         } else {
                             this.setState({
                                 factorTitle: this.state.factores[this.state.i].name,
@@ -178,6 +186,7 @@ export default class CuestionarioRes extends Component {
     render() {
         const isAlreadyAuth = this.isAuth();
         const isT = this.isType();
+        console.log('i',this.state.i)
 
         return (
             <div style={{ margin: '0px' }}>

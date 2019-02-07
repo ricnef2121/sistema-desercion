@@ -47,7 +47,7 @@ export default class PastelEdades extends Component {
             ><div 
             style={{
                 width: '14px',
-                height: '14px',
+                height: '14px', 
                 borderRadius: '50%',
                 border: `solid 2.5px ${backgroundColor[k]}`,
                 overflow: 'hidden'
