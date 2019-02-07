@@ -343,7 +343,7 @@ export default class Encuesta extends Component {
             })
             .catch(err => {
                 console.log(err)
-            })
+            }) 
     }
 
     addDatosAcademicos = e => {
@@ -351,12 +351,12 @@ export default class Encuesta extends Component {
         e.preventDefault();
         const matricula = e.target.Matricula.value;
         const carrera = this.state.selectedCarrera;
-        const semestre = this.state.selectedSemestre;
+        const semestre = parseInt(this.state.selectedSemestre);
         const fecha_ingreso = e.target.fecha.value;
         const turno = this.state.selectedTurno;
         const grupo = e.target.Grupo.value;
         const t_baja = this.state.selectedTbaja;
-        console.log(fecha_ingreso);
+        //console.log('semestres parseado',parseInt(semestre));
         const datos = {
             semestre: semestre,
             turno: turno,

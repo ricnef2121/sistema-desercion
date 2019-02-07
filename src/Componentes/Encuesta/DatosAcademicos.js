@@ -77,7 +77,7 @@ export default class DatosAcademicos extends Component {
                                                 </InputGroup>
 
                                             </FormGroup>
-                                        </Col>
+                                        </Col> 
                                         <Col md={6} >
                                         <FormGroup>
                                         <ControlLabel>Semestre</ControlLabel>
@@ -89,18 +89,18 @@ export default class DatosAcademicos extends Component {
                                                         name="semestre"
                                                         onSelect={this.props.selectedSemestre}                                                                                                                                                                          
                                                     >
-                                                        <MenuItem key="1" eventKey="1º Semestre">1º Semestre</MenuItem>
-                                                        <MenuItem key="2" eventKey="2º Semestre">2º Semestre</MenuItem>
-                                                        <MenuItem key="3" eventKey="3º Semestre">3º Semestre</MenuItem>
-                                                        <MenuItem key="4" eventKey="4º Semestre">4º Semestre</MenuItem>
-                                                        <MenuItem key="5" eventKey="5º Semestre">5º Semestre</MenuItem>
-                                                        <MenuItem key="6" eventKey="6º Semestre">6º Semestre</MenuItem>
-                                                        <MenuItem key="7" eventKey="7º Semestre">7º Semestre</MenuItem>
-                                                        <MenuItem key="8" eventKey="8º Semestre">8º Semestre</MenuItem>
-                                                        <MenuItem key="9" eventKey="9º Semestre">9º Semestre</MenuItem>
-                                                        <MenuItem key="10" eventKey="10º Semestre">10º Semestre</MenuItem>
-                                                        <MenuItem key="11" eventKey="11º Semestre">11º Semestre</MenuItem>
-                                                        <MenuItem key="12" eventKey="12º Semestre">12º Semestre</MenuItem>
+                                                        <MenuItem key="1" eventKey={1}>1º Semestre</MenuItem> 
+                                                        <MenuItem key="2" eventKey={2}>2º Semestre</MenuItem>
+                                                        <MenuItem key="3" eventKey={3}>3º Semestre</MenuItem>
+                                                        <MenuItem key="4" eventKey={4}>4º Semestre</MenuItem>
+                                                        <MenuItem key="5" eventKey={5}>5º Semestre</MenuItem>
+                                                        <MenuItem key="6" eventKey={6}>6º Semestre</MenuItem>
+                                                        <MenuItem key="7" eventKey={7}>7º Semestre</MenuItem>
+                                                        <MenuItem key="8" eventKey={8}>8º Semestre</MenuItem>
+                                                        <MenuItem key="9" eventKey={9}>9º Semestre</MenuItem>
+                                                        <MenuItem key="10" eventKey={10}>10º Semestre</MenuItem>
+                                                        <MenuItem key="11" eventKey={11}>11º Semestre</MenuItem>
+                                                        <MenuItem key="12" eventKey={12}>12º Semestre</MenuItem>
                                                     </DropdownButton>
                                                     <FormControl type="text" name="semestre"
                                                     defaultValue={this.props.sourceSemestre} 

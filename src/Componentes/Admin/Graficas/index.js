@@ -1,30 +1,55 @@
 import React, { Component } from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 //Componentes
 import NavPrincipal from '../../reutilizables/NavPrincipal';
 import NavAdmin from '../../reutilizables/NavAdmin'
+import BarrasFactor from './Barras';
+import Tabla from './Tabla';
+import PieEdades from './PastelEdades';
 
 export default class Graficas extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.isAuth = this.isAuth.bind(this);
     this.isType = this.isType.bind(this);
 
     this.state = {
-      show: false
+      groupFactors: [],
+      groupSemestres:[],
+      groupEdades:[]
     };
   }
 
-  handleClose() {
-    this.setState({ show: false });
-  }
+  componentDidMount() {
+    axios.get('https://api-rest-crudric.herokuapp.com/api/userResCount')
+      .then((res) => {
+        const groupFactors = res.data;
+       // console.log('groupfactores',groupFactors)
+        this.setState({
+          groupFactors: groupFactors
+        })
+      })
 
-  handleShow() {
-    this.setState({ show: true });
+      axios.get('https://api-rest-crudric.herokuapp.com/api/userSemCount')
+      .then((res) => {
+        const groupSemestres = res.data;
+        console.log('groupSem',groupSemestres) 
+        this.setState({
+          groupSemestres: groupSemestres
+        })
+      })
+
+      axios.get('https://api-rest-crudric.herokuapp.com/api/userCountEdad')
+      .then((res)=>{
+        const groupEdades = res.data;
+       // console.log('groupedades',groupEdades)
+        this.setState({
+          groupEdades:groupEdades
+        })
+      })
   }
 
   //validar el tipo de usuario
@@ -50,7 +75,19 @@ export default class Graficas extends Component {
             <NavPrincipal />
             <NavAdmin></NavAdmin>
             <Col md={10} style={{ backgroundColor: '#FAFAFC', height: '100%' }}>
-              <h1>asas</h1>
+              <Row>
+                <BarrasFactor
+                groupFactors={this.state.groupFactors}
+               
+                />
+                <Tabla 
+                groupFactors2={this.state.groupFactors}
+                groupSemestres={this.state.groupSemestres}
+                />
+                <PieEdades 
+                groupEdades = {this.state.groupEdades}
+                />
+              </Row>
             </Col>
 
 

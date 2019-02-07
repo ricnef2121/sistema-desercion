@@ -4,7 +4,7 @@ import {
     // Radio, Checkbox
 } from 'react-bootstrap';
 
-
+ 
 export default class DatosAcademicos extends Component {
 
 

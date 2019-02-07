@@ -102,7 +102,7 @@ export default class DireccionLocal extends Component {
                                         </Col>
                                         <Col md={4} >
                                             <FormGroup> 
-                                                <ControlLabel>Colonia</ControlLabel>
+                                                <ControlLabel>Municipio</ControlLabel>
                                                 <FormControl
                                                     type="text" id="colonia"
                                                     name="colonia"

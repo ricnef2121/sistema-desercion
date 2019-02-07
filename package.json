@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "chart.js": "^2.7.3",
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.0.10",
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
     "react-chartjs-2": "^2.7.4",

@@ -6,6 +6,13 @@ import axios from 'axios';
 import Body from './Body';
 
 export default class CuestionarioRes extends Component {
+    //https://www.robinwieruch.de/react-warning-cant-call-setstate-on-an-unmounted-component/
+    /**Warning: Can't perform a React state update on an unmounted component.
+     * This is a no-op, but it indicates a memory leak in your application. 
+     * To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount
+     *  method.
+     * para evitar ese error se enumeran los pasos a seguir en comentarios */
+    _isMounted = false; //1
     constructor(props) {
         super(props);
         this.isAuth = this.isAuth.bind(this);
@@ -14,27 +21,27 @@ export default class CuestionarioRes extends Component {
         this.addRespuestas = this.addRespuestas.bind(this);
         this.getPreguntasByFactor = this.getPreguntasByFactor.bind(this);
         this.redirectGra = this.redirectGra.bind(this);
-        //this.onChangeAction = this.onChangeAction.bind(this)
+        //this.onChangeAction = this.onChangeAction.bind(this) 
 
         this.state = {
             preguntas: [],
             resultados: [],
-            
-            factores:[],
+
+            factores: [],
             valor: false,
-            factorTitle:'',
-            initialCheck:false,
-            i:0,
-            redirectGra:false
+            factorTitle: '',
+            initialCheck: false,
+            i: 0,
+            redirectGra: false
         }
 
     }
-    onChangeAction = ()=>{
+    onChangeAction = () => {
         this.setState({
-            initialCheck:true
+            initialCheck: true 
         })
     }
-   //inserta la pregunta y sus valores al arreglo de resultados
+    //inserta la pregunta y sus valores al arreglo de resultados
     handleClick = (data) => {
         const res = this.state.resultados;
         //Encontrar si un elemento existe en la matriz o no y actualizar la matriz
@@ -43,7 +50,7 @@ export default class CuestionarioRes extends Component {
             //se agrega un nuevo elemento para indicar que enverdad se selecciono esta opcion
             data.response = true;
             res.push(data);
-            console.log('resultados: ' + res);
+            console.log('resultados: ' + res);          
             //si elemento ya existe no lo inserta pero lo elimina, esto con el fin de no duplicar elemntos dentro
             //de las respuestas
         } else if (res.indexOf(data) > -1) {
@@ -59,33 +66,41 @@ export default class CuestionarioRes extends Component {
 
     //trae todas las preguntas de la base de datos
     componentDidMount() {
+        //2
+        this._isMounted = true;
         axios.get(`https://api-rest-crudric.herokuapp.com/api/factores`)
             .then(res => {
-                const factores = (res.data).factores                
+                const factores = (res.data).factores
                 this.setState({
                     factores: factores,
-                    factorTitle : factores[this.state.i].name,
+                    factorTitle: factores[this.state.i].name,
                     //initialCheck:false
                 })
-                this.getPreguntasByFactor();                 
+                this.getPreguntasByFactor();
             })
 
     }
-
-getPreguntasByFactor(){
-    if(this.state.factorTitle){ 
-        axios.get(`https://api-rest-crudric.herokuapp.com/api/preguntasFactor/${this.state.factorTitle}`)
-        .then(res => {
-            const preguntas = (res.data).pregunta
-           //console.log(preguntas);
-             this.setState({
-                preguntas: preguntas,                
-            })
-        })        
-    }else {
-        console.log('no se a setedo')
+    //3
+    componentWillUnmount() {
+        this._isMounted = false;
     }
-}
+
+
+
+    getPreguntasByFactor() {
+        if (this.state.factorTitle) {
+            axios.get(`https://api-rest-crudric.herokuapp.com/api/preguntasFactor/${this.state.factorTitle}`)
+                .then(res => {
+                    const preguntas = (res.data).pregunta
+                    //console.log(preguntas);
+                    this.setState({
+                        preguntas: preguntas,
+                    })
+                })
+        } else {
+            console.log('no se a setedo')
+        }
+    }
 
     //trae todas las preguntas de la base de datos 
 
@@ -109,43 +124,52 @@ getPreguntasByFactor(){
 
     //inserta una nueva respuesta por cada elemento de la matriz de resultados
     addRespuestas = (e) => {
-        e.preventDefault();        
-        this.state.resultados.forEach(r => {
-            const c = {
-                pregunta: r.name,
-                factor: r.factor,
-                response:r.response
-            }
-            axios.put(`https://api-rest-crudric.herokuapp.com/api/userRes/${this.props.location.state.id}`, c)
-                .then(res => {
-                    const carreras = (res.data);
-                    console.log(carreras);
-                    this.setState({
-                        resultados:[],
-                        i:this.state.i+1                        
-                        
+        e.preventDefault();
+        const results = this.state.resultados;
+        if(results.length === 0){
+            console.log('el objeto esta vacio no se debe de mandar')
+        }else if(results.length > 0) {
+            //console.log('estado lleno')
+            results.forEach(r => {
+                const c = {
+                    pregunta: r.name,
+                    factor: r.factor,
+                    response: r.response
+                }
+               
+                axios.put(`https://api-rest-crudric.herokuapp.com/api/userRes/${this.props.location.state.id}`, c)
+                    .then(res => {
+                        const carreras = (res.data);
+                        console.log(carreras);
+                        this.setState({
+                            resultados: [],
+                            i: this.state.i + 1
+    
+                        })
+                        //creamos una condicional para que despues de que se guarden las respuestas
+                        //se verifique si hay mas preguntas por responder si no simplemente se redirecciona 
+                        //al agradecimiento de realizar la encuesta
+                        if (this.state.i === this.state.factores.length) {
+                            this.setState({
+                                redirectGra: true
+                            })
+                            console.log(this.state.redirectGra)
+                        } else {
+                            this.setState({
+                                factorTitle: this.state.factores[this.state.i].name,
+                            })
+                            this.getPreguntasByFactor();
+                        }
                     })
-                    //creamos una condicional para que despues de que se guarden las respuestas
-                    //se verifique si hay mas preguntas por responder si no simplemente se redirecciona 
-                    //al agradecimiento de realizar la encuesta
-                    if(this.state.i === this.state.factores.length){
-                        this.setState({
-                            redirectGra:true
-                        })
-                        console.log(this.state.redirectGra)
-                    }else{
-                        this.setState({
-                            factorTitle:this.state.factores[this.state.i].name,
-                        })
-                        this.getPreguntasByFactor();
-                    }                               
-                })                
-        })        
+            })  
+        }
+        
+        
     }
 
-   //este metodo se encarga de redireccionarnos a la vista de agradecimiento
-   //lo hace una ves que el estado redirectGra sea verdadero,mientras no.
-    redirectGra = () => {       
+    //este metodo se encarga de redireccionarnos a la vista de agradecimiento
+    //lo hace una ves que el estado redirectGra sea verdadero,mientras no.
+    redirectGra = () => {
         if (this.state.redirectGra === true) {
             return <Redirect to='/endup' />
         }
@@ -164,19 +188,19 @@ getPreguntasByFactor(){
                             //pasamos el objeto preguntas que contiene los datos 
                             //recuperados por la cnsulta del componentdidmount
                             preguntas={this.state.preguntas}
-                            email = {this.props.location.state.e} 
+                            email={this.props.location.state.e}
                             addRespuestas={this.addRespuestas}
                             handleClick={this.handleClick}
                             //estado inical de los checkbox necesario para volver a resetear los checkbox despues
                             //de guardar las respuestas
-                            initialCheck = {this.state.initialCheck}
+                            initialCheck={this.state.initialCheck}
 
                             //titulo o nombre del factor actual
                             factorTitle={this.state.factorTitle}
                             //onchange checkbox
                             onChangeAction={this.onChangeAction}
                             //redireccionador a agradeciminento
-                            gracias = {this.redirectGra}
+                            gracias={this.redirectGra}
                         />
 
 

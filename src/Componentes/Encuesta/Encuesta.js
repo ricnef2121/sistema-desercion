@@ -16,7 +16,6 @@ import { Row } from 'react-bootstrap';
 
 export default class EncuestaForm extends Component {
 
-
     render() {
  
         return (
