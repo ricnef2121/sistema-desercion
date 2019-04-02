@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+## Para poder ejecutar este proyecto:
+- requiere tener instalada la version mas reciente de node.js
+- desacargue o clone el repositorio
+- abra la consola de su preferencia y navegue hasta situarse dentro del proyecto
+- corra el siguiente comando : npm init
+- corrab el siguiente comando : npm start
+- dirigase a su navegador de preferencia y abra htpp//:localhost:300
+
 ## Available Scripts
 
 In the project directory, you can run:
