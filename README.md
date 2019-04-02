@@ -7,7 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - abra la consola de su preferencia y navegue hasta situarse dentro del proyecto
 - corra el siguiente comando : npm init
 - corrab el siguiente comando : npm start
-- dirigase a su navegador de preferencia y abra htpp//:localhost:300
+- dirigase a su navegador de preferencia y abra htpp//:localhost:3000
 
 ## Available Scripts
 
